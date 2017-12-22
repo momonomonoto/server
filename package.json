@@ -1,0 +1,29 @@
+{
+  "name": "NodeServer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd ./server && nodemon index.js"
+  },
+  "keywords": [
+    "Node",
+    "NodeServer",
+    "ServerForNode"
+  ],
+  "author": "Kirill",
+  "license": "ISC",
+  "dependencies": {
+    "eslint": "3.19.0",
+    "eslint-config-airbnb": "15.1.0",
+    "eslint-plugin-import": "2.8.0",
+    "eslint-plugin-jsx-a11y": "5.1.1",
+    "eslint-plugin-react": "7.4.0",
+    "express": "^4.16.2",
+    "nodemon": "^1.13.3"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "babel-preset-stage-0": "^6.24.1"
+  }
+}
