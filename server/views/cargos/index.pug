@@ -1,0 +1,7 @@
+extends ../layout
+
+include ../mixins/cargo-card
+
+block content
+   for cargo in cargos
+            +cargo-card(cargo)

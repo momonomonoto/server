@@ -1,0 +1,18 @@
+include card
+
+mixin cargo-card(cargo)
+    +card(class='cargo-cargos red' id=cargo.id).cargo_card
+        .demo-card-wide.mdl-card.mdl-shadow--2dp
+            .mdl-card__title
+                h2.mdl-card__title-text=cargo.title
+            .mdl-card__supporting-text.card_supporting-text
+                p=cargo.description
+            .mdl-card__actions.mdl-card--border
+                a.mdl-navigation__link(href=`cargos/${cargo.id}`).mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect
+                    | More
+            .mdl-card__menu
+                button.mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect
+                    i.material-icons add_shopping_cart
+
+
+

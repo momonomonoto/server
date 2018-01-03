@@ -1,0 +1,41 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        meta(http-equiv='X-UA-Compatible' content='ie=edge')
+
+        title= title
+
+        block styles
+            link(rel="stylesheet" href="../material.css")
+            link(rel="stylesheet" href="../style.css")
+            link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
+    body
+        block header
+            .mdl-layout.mdl-js-layout.mdl-layout--fixed-drawer.mdl-layout--fixed-header
+                header.mdl-layout__header
+                    .mdl-layout__header-row.cargo_navbar
+
+                        .mdl-layout-spacer
+                        a.mdl-navigation__link.mdl-layout-title.cargo_navbar__title(href='/cargos') InfoShop
+                        form(method='POST')
+                            .mdl-textfield.mdl-js-textfield.mdl-textfield--expandable.cargo_search.mdl-textfield--floating-label.mdl-textfield--align-right
+                                input#fixed-header-drawer-exp.mdl-textfield__input(type='text', name='search').cargo__text_input
+                                button.mdl-button.mdl-js-button.mdl-button--icon(for='fixed-header-drawer-exp',type='submit')
+                                    .icon
+                                        i.material-icons search
+
+                        nav.mdl-navigation
+                            a.mdl-navigation__link(href='/about') About
+                            a.mdl-navigation__link(href='/cargos') Projects
+                            a.mdl-navigation__link(href='/login') Sign in
+                .mdl-layout__drawer
+                    span.mdl-layout-title Category
+                    nav.mdl-navigation
+                        a.mdl-navigation__link(href='category/scienstic') Scienstic
+                        a.mdl-navigation__link(href='category/universe') Universe
+                        a.mdl-navigation__link(href='category/money') Money
+                main.mdl-layout__content.cargo_card-container
+                    block content
+        include scripts.pug
