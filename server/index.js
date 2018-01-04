@@ -12,7 +12,7 @@ const config = require('./config');
 const server = express();
 
 server.use(express.static(config.path.static));
-server.use(bodyParser.urlencoded({ extends: false }));
+server.use(bodyParser.urlencoded({ extended: false }));
 server.set('views', config.path.view);
 server.set('view engine', 'pug');
 server.get('/', mainRouter);
