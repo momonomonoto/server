@@ -1,2 +1,14 @@
 # infoshop
-Easy sales  in your infobusiness. Just install this project and will get more and more clients everyday. Simple uses, perfect quality, good documentation. We proud our product and hope your will enjoying our work. Good luck!
+Пример магазина для размещения инфопродуктов. 
+
+Routers:
+/cargos: project pages. Страница проектов
+/cargos/:id: project card. Карточка товара
+/cargos/add_commentary/:id. Commentary form. Форма для добавления комментария.
+/cargos/add_commentary/:id. Add commentary.  Пост-запрос для добавления комментария. 
+/category/:categoryParam. Find project. Пост-запрос для поиска проектов по категориям. 
+/about. About project. Информация о проекте.
+/login. Login form. Информация для входа в административную часть проекта..
+
+
+
