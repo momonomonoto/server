@@ -33,6 +33,11 @@ main.mdl-layout__content.cargo_card-container {
 .cargo_card {
     margin:22px;
 }
+
+.commentary-container {
+    display: flex;
+    justify-content: center;
+}
 @media (min-width: 1250px) {
     .mdl-layout__drawer {
         display: block;
@@ -51,4 +56,8 @@ main.mdl-layout__content.cargo_card-container {
 
 .login_form {
   align-self: baseline;
+}
+
+.commentary__form-field {
+    width: 100%;
 }

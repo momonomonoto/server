@@ -51,13 +51,13 @@ module.exports = {
     };
 
 
-    const createCommentary = (items, idItem, commentaryContext) => {
+    const createCommentary = (items, idItem, commentaryContext, newTitle) => {
       const item = findItemById(items, idItem);
       const { commentaries } = item;
-      const newCommentaries = commentaries.concat({ id: shortId.generate(), title: commentaryContext });
+      const newCommentaries = commentaries.concat({ id: shortId.generate(), title: newTitle, description: commentaryContext });
       const newItem = Object.assign({}, item, { commentaries: newCommentaries });
-      const resultList = createItemCommentary(items, newItem);
-      return resultList;
+      // const resultList = createItemCommentary(items, newItem);
+      return newItem;
     };
 
     return {
@@ -150,6 +150,9 @@ module.exports = {
           res.send(resultList);
         }
       },
+      showCommentaryForm(req, res) {
+        res.render('commentaryForm/index');
+      },
       showCommentary(req, res) {
         const { id } = req.params;
         const item = findItemById(items, id);
@@ -162,9 +165,10 @@ module.exports = {
         res.send(itemList);
       },
       createCommentary(req, res) {
-        const { id, commentaryContext } = req.params;
-        const resultList = createCommentary(items, id, commentaryContext);
-        res.send(resultList);
+        const { title, text } = req.body;
+        const { id } = req.params;
+        const resultElem = createCommentary(items, id, text, title);
+        res.render('cargo/index', { cargo: resultElem });
       },
       editCommentary(req, res) {
         const { id, commentaryId, commentaryContext } = req.params;

@@ -11,6 +11,8 @@ function setRouter(items) {
   router.get('/category/:categoryParam', itemController.searchCategory);
   router.get('/select/:idList', itemController.selectItem);
   router.get('/:id', itemController.showItem);
+  router.get('/add_commentary/:id', itemController.showCommentaryForm);
+  router.post('/add_commentary/:id', itemController.createCommentary);
   router.get('/commentary/:id', itemController.showCommentary);
   router.get('/commentary/delete/:id/:commentaryId', itemController.deleteCommentary);
   router.get('/commentary/create/:id/:commentaryContext', itemController.createCommentary);

@@ -8,5 +8,9 @@ mixin aboutCard(cargo)
                     .demo-crumbs.mdl-color-text--grey-500
                     h3=cargo.title
                     p=cargo.description
+                    .commentary-container
+                        a.mdl-navigation__link(href=`/cargos/add_commentary/${cargo.id}`)
+                            button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored
+                                | Add commentary
                     if cargo.commentaries
                         +cargo-commentary(cargo.commentaries)
