@@ -1,4 +1,5 @@
-const shortId = require('shortId');
+const shortId = require('shortid');
+const { connect, ObjectID } = require('../services/db');
 
 module.exports = {
   setControllerOperation(items, param) {
@@ -97,6 +98,14 @@ module.exports = {
         res.render('cargos/index', { cargos: resultList });
       },
       showItems(req, res) {
+        console.log("hello wow");
+        connect().then(collection => {
+          collection.find().toArray()
+                  .then(notes => {
+                    console.log(notes, 'notes');
+                  })
+        });
+
         res.render('cargos/index', { cargos: items });
       },
       showItem(req, res) {
