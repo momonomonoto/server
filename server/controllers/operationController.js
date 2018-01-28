@@ -1,5 +1,11 @@
 const shortId = require('shortid');
-const { connect, ObjectID } = require('../services/db');
+const { db, ObjectID } = require('../services/db');
+const { ObjectId } = require('mongodb'); // or ObjectID
+const modelMongo = require('../models/project');
+const modelCommentary = require('../models/commentary');
+const modelUser = require('../models/users');
+
+const safeObjectId = s => ObjectId.isValid(s) ? new ObjectId(s) : null;
 
 module.exports = {
   setControllerOperation(items, param) {
@@ -89,75 +95,76 @@ module.exports = {
       },
       searchItem(req, res) {
         const search = req.body.search;
-        const resultList = findElemByParam(items, 'title', search);
-        res.render('cargos/index', { cargos: resultList });
-      },
-      searchCategory(req, res) {
-        const { categoryParam } = req.params;
-        const resultList = findElemByParam(items, 'category', categoryParam);
-        res.render('cargos/index', { cargos: resultList });
-      },
-      showItems(req, res) {
-        console.log("hello wow");
-        connect().then(collection => {
-          collection.find().toArray()
-                  .then(notes => {
-                    console.log(notes, 'notes');
-                  })
+        modelMongo.find({ title: search }).then((cargos) => {
+          res.render('cargos/index', { cargos });
         });
-
-        res.render('cargos/index', { cargos: items });
       },
-      showItem(req, res) {
+      searchCategory(req, res, next) {
+        const { categoryParam } = req.params;
+        modelMongo.find({ category: categoryParam })
+              .then(resultList => {
+                res.render('cargos/index', { cargos: resultList });
+              })
+            .catch(next);
+      },
+      showItems(req, res, next) {
+        modelMongo.find().then((cargos) => {
+          res.render('cargos/index', { cargos });
+        });
+      },
+      showItem(req, res, next) {
         const { id } = req.params;
-        const item = findItemById(items, id);
-        res.render('cargo/index', { cargo: item });
+        modelMongo.findOne({ id })
+              .then(item => {
+                res.render('cargo/index', { cargo: item });
+              })
+              .catch(next);
       },
       selectItem(req, res) {
         const { idList } = req.params;
-        const selectArrIdList = (items, idList) => {
-          const resultList = items.map((elemList, index) => {
-            const { select } = elemList;
-            const newSelect = !select;
-            if (idList.includes(elemList)) {
-              const newElemList = Object.assign({}, elemList, { select: newSelect });
-              return newElemList;
-            }
-            return elemList;
-          });
-          return resultList;
-        };
-
-        const trasformIdListToArray = (idList) => {
-          const idListArray = idList.match(/,/g);
-          if (idListArray) {
-            const resultIdList = idList.split();
-            return resultIdList;
-          }
-          return idList;
-        };
-
-        const selectStringId = (arrId) => {
-          const arrList = arrId.map(elemItem => {
-            const { select } = elemItem;
-            const newSelect = !select;
-            if (elemItem.id === Number(idList)) {
-              const resultElem = Object.assign({}, elemItem, { select: true });
-              return resultElem;
-            }
-            return elemItem;
-          });
-          return arrList;
-        };
-
-        const elemId = trasformIdListToArray(idList);
-        if (Array.isArray(elemId)) {
-          const resultList = selectArrIdList(items, elemId);
-          res.send(resultList);
-        } else {
-          const resultList = selectStringId(items, elemId);
-          res.send(resultList);
-        }
+        // const selectArrIdList = (items, idList) => {
+        //   const resultList = items.map((elemList, index) => {
+        //     const { select } = elemList;
+        //     const newSelect = !select;
+        //     if (idList.includes(elemList)) {
+        //       const newElemList = Object.assign({}, elemList, { select: newSelect });
+        //       return newElemList;
+        //     }
+        //     return elemList;
+        //   });
+        //   return resultList;
+        // };
+        //
+        // const trasformIdListToArray = (idList) => {
+        //   const idListArray = idList.match(/,/g);
+        //   if (idListArray) {
+        //     const resultIdList = idList.split();
+        //     return resultIdList;
+        //   }
+        //   return idList;
+        // };
+        //
+        // const selectStringId = (arrId) => {
+        //   const arrList = arrId.map(elemItem => {
+        //     const { select } = elemItem;
+        //     const newSelect = !select;
+        //     if (elemItem.id === Number(idList)) {
+        //       const resultElem = Object.assign({}, elemItem, { select: true });
+        //       return resultElem;
+        //     }
+        //     return elemItem;
+        //   });
+        //   return arrList;
+        // };
+        //
+        // const elemId = trasformIdListToArray(idList);
+        // if (Array.isArray(elemId)) {
+        //   const resultList = selectArrIdList(items, elemId);
+        //   res.send(resultList);
+        // } else {
+        //   const resultList = selectStringId(items, elemId);
+        //   res.send(resultList);
+        // }
       },
       showCommentaryForm(req, res) {
         res.render('commentaryForm/index');
@@ -175,15 +182,65 @@ module.exports = {
       },
       createCommentary(req, res) {
         const { title, text } = req.body;
-        const { id } = req.params;
-        const resultElem = createCommentary(items, id, text, title);
-        res.render('cargo/index', { cargo: resultElem });
+        const { id, _id } = req.params;
+        console.log(req.params, 'req.params');
+        // const resultElem = createCommentary(items, id, text, title);
+        // modelMongo.findByIdAndUpdate(id, { $set: { size: 'large' } }, { new: true }, (err, resultElem) => {
+        //   if (err) return err;
+        //   res.render('cargo/index', { cargo: resultElem });
+        // });
+        // modelMongo.findOne({ id }, (err, elem) => {
+        //   console.log(elem,'elemelem')
+        //   elem.set({ commentaries: [] });
+        //   elem.save((err, newElem) => {
+        //     if (err) return;
+        //     res.render('cargo/index', { cargo: elem });
+        //   });
+        // });
+        const query = { id };
+        modelMongo.findOneAndUpdate(query, { commentaries: { title, text } }, (err, elem) => {
+          return res.render('cargo/index', { cargo: elem });
+        });
+
+        //   modelMongo.findOne({ id }, (err, elem) => {
+        //       // elem.commentaries = elem.commentaries.push({ title, text });
+        //     elem.save({ commentaries: elem.commentaries.push({ title, text }) });
+        //     modelMongo.update(elem)
+        //   res.render('cargo/index', { cargo: elem });
+        // });
       },
       editCommentary(req, res) {
         const { id, commentaryId, commentaryContext } = req.params;
         const item = findItemById(items, id);
         const resultList = changeCommentary(item, commentaryId, 'edit', commentaryContext);
         res.send(resultList);
+      },
+      authorization(req, res, next) {
+        const { password, name } = req.body;
+        modelUser.findOne({ name, password })
+              .then(user => {
+                console.log(user, 'This is user');
+                res.cookie('userId', user.id);
+                res.redirect('/profile/');
+              })
+            .catch(() => {
+              res.redirect('/cargos/');
+            }
+            );
+      },
+      register(req, res, next) {
+        const { password, name } = req.body;
+        res.redirect('/cargos/');
+        modelUser.create({ name, password })
+              .then(user => {
+                res.session.userId = user.id;
+                  res.cookie('userId', user.id);
+                  res.redirect('/profile/');
+              })
+              .catch(() => {
+                res.redirect('/cargos/');
+              }
+              );
       }
     };
   }
