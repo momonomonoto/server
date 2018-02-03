@@ -4,12 +4,19 @@ const { ObjectId } = require('mongodb'); // or ObjectID
 const modelMongo = require('../models/project');
 const modelCommentary = require('../models/commentary');
 const modelUser = require('../models/users');
+const modelAbout = require('../models/about');
 
 const safeObjectId = s => ObjectId.isValid(s) ? new ObjectId(s) : null;
 
 module.exports = {
   setControllerOperation(items, param) {
     return {
+      showAboutInformation(req, res) {
+        modelAbout.find().then((aboutItem) => {
+          console.log(aboutItem,'aboutItem');
+          res.render('about/index', { cargo: aboutItem });
+        });
+      },
       deleteItems(req, res) {
         const queryItemId = Number(Object.keys(req.query)[0]);
       },
