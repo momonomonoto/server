@@ -183,20 +183,19 @@ module.exports = {
       createCommentary(req, res) {
         const { title, text } = req.body;
         const { id, _id } = req.params;
-        console.log(req.params, 'req.params');
         // const resultElem = createCommentary(items, id, text, title);
         // modelMongo.findByIdAndUpdate(id, { $set: { size: 'large' } }, { new: true }, (err, resultElem) => {
         //   if (err) return err;
         //   res.render('cargo/index', { cargo: resultElem });
         // });
-        // modelMongo.findOne({ id }, (err, elem) => {
-        //   console.log(elem,'elemelem')
-        //   elem.set({ commentaries: [] });
-        //   elem.save((err, newElem) => {
-        //     if (err) return;
-        //     res.render('cargo/index', { cargo: elem });
-        //   });
-        // });
+        modelMongo.findOne({ id }, (err, elem) => {
+          console.log(elem,'elemelem');
+          elem.set({ commentaries: [] });
+          elem.save((err, newElem) => {
+            if (err) return;
+            res.render('cargo/index', { cargo: elem });
+          });
+        });
         const query = { id };
         modelMongo.findOneAndUpdate(query, { commentaries: { title, text } }, (err, elem) => {
           return res.render('cargo/index', { cargo: elem });
@@ -219,7 +218,6 @@ module.exports = {
         const { password, name } = req.body;
         modelUser.findOne({ name, password })
               .then(user => {
-                console.log(user, 'This is user');
                 res.cookie('userId', user.id);
                 res.redirect('/profile/');
               })
