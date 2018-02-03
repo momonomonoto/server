@@ -23,7 +23,7 @@ module.exports = {
         const id = shortId.generate();
       },
       searchItem(req, res) {
-          const search = new RegExp(req.query.search, 'gi');
+        const search = new RegExp(req.query.search, 'gi');
         modelMongo.find({ title: search }).then((cargos) => {
           res.render('cargos/index', { cargos });
         });
@@ -113,13 +113,13 @@ module.exports = {
         //   if (err) return err;
         //   res.render('cargo/index', { cargo: resultElem });
         // });
-          console.log(id,'idid')
+        console.log(id, 'idid');
         modelMongo.findOne({ id }, (err, elem) => {
           elem.commentaries.push({ title, description });
 
-            elem.save((err, elem) => {
-             console.log(elem,'new elem');
-             console.log(err,'err');
+          elem.save((err, elem) => {
+            console.log(elem, 'new elem');
+            console.log(err, 'err');
              // if (err) return;
             res.redirect('/cargos/');
           });
