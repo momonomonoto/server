@@ -9,89 +9,18 @@ const safeObjectId = s => ObjectId.isValid(s) ? new ObjectId(s) : null;
 
 module.exports = {
   setControllerOperation(items, param) {
-    const findElemByParam = (items, nameParam, valueParam) => {
-      const resultList = items.filter(elemItem => {
-        const elemValueParam = elemItem[`${nameParam}`].toLowerCase();
-        const findValueParam = valueParam.toString().toLowerCase();
-        return elemValueParam.includes(findValueParam);
-      });
-      return resultList;
-    };
-    const findItemById = (items, findId) => {
-      const itemId = Number(findId);
-      const itemResult = items.find(elemItem => elemItem.id === itemId);
-      return itemResult;
-    };
-    const createItemCommentary = (items, newItem) => {
-      const itemList = items.map(elemItem => {
-        if (elemItem.id === newItem.id) return newItem;
-        return elemItem;
-      });
-      return itemList;
-    };
-
-    const changeCommentary = (item, commentaryId, param = 'delete', commentaryContext = '') => {
-      const { commentaries } = item;
-
-      const objParam = {
-        delete() {
-          const resultCommentaries = commentaries.filter(elemCommentary => elemCommentary.id !== Number(commentaryId));
-          return resultCommentaries;
-        },
-        edit() {
-          const resultCommentaries = commentaries.map(elemCommentary => {
-            if (elemCommentary.id === Number(commentaryId)) elemCommentary.title = commentaryContext;
-            return elemCommentary;
-          });
-          return resultCommentaries;
-        }
-      };
-
-
-      if (objParam.hasOwnProperty(param)) {
-        const resultCommentaries = objParam[param]();
-        const newItem = Object.assign({}, item, { commentaries: resultCommentaries });
-        const itemList = createItemCommentary(items, newItem);
-        return itemList;
-      }
-      return items;
-    };
-
-
-    const createCommentary = (items, idItem, commentaryContext, newTitle) => {
-      const item = findItemById(items, idItem);
-      const { commentaries } = item;
-      const newCommentaries = commentaries.concat({ id: shortId.generate(), title: newTitle, description: commentaryContext });
-      const newItem = Object.assign({}, item, { commentaries: newCommentaries });
-      // const resultList = createItemCommentary(items, newItem);
-      return newItem;
-    };
-
     return {
       deleteItems(req, res) {
         const queryItemId = Number(Object.keys(req.query)[0]);
-        const itemsList = items.filter(item => {
-          return item.id !== queryItemId;
-        });
-        res.send(itemsList);
       },
 
       editItem(req, res) {
         const queryItemId = Number(Object.keys(req.query)[0]);
         const queryItemContext = Object.getOwnPropertyDescriptor(req.query, queryItemId).value;
-        const itemList = items.map((item, index, arr) => {
-          if (item.id === queryItemId) {
-            item.title = queryItemContext;
-          }
-          return item;
-        });
-        res.send(itemList);
       },
       addItem(req, res) {
         const titleItems = Object.getOwnPropertyNames(req.query).join();
         const id = shortId.generate();
-        const itemList = items.concat([{ id, title: titleItems }]);
-        res.send(itemList);
       },
       searchItem(req, res) {
         const search = req.body.search;
@@ -171,14 +100,9 @@ module.exports = {
       },
       showCommentary(req, res) {
         const { id } = req.params;
-        const item = findItemById(items, id);
-        res.send(item.commentaries);
       },
       deleteCommentary(req, res) {
         const { id, commentaryId } = req.params;
-        const item = findItemById(items, id);
-        const itemList = changeCommentary(item, commentaryId);
-        res.send(itemList);
       },
       createCommentary(req, res) {
         const { title, text } = req.body;
@@ -189,7 +113,7 @@ module.exports = {
         //   res.render('cargo/index', { cargo: resultElem });
         // });
         modelMongo.findOne({ id }, (err, elem) => {
-          console.log(elem,'elemelem');
+          console.log(elem, 'elemelem');
           elem.set({ commentaries: [] });
           elem.save((err, newElem) => {
             if (err) return;
@@ -210,9 +134,6 @@ module.exports = {
       },
       editCommentary(req, res) {
         const { id, commentaryId, commentaryContext } = req.params;
-        const item = findItemById(items, id);
-        const resultList = changeCommentary(item, commentaryId, 'edit', commentaryContext);
-        res.send(resultList);
       },
       authorization(req, res, next) {
         const { password, name } = req.body;
@@ -232,8 +153,8 @@ module.exports = {
         modelUser.create({ name, password })
               .then(user => {
                 res.session.userId = user.id;
-                  res.cookie('userId', user.id);
-                  res.redirect('/profile/');
+                res.cookie('userId', user.id);
+                res.redirect('/profile/');
               })
               .catch(() => {
                 res.redirect('/cargos/');
