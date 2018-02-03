@@ -19,7 +19,7 @@ html(lang='en')
 
                         .mdl-layout-spacer
                         a.mdl-navigation__link.mdl-layout-title.cargo_navbar__title(href='/cargos') InfoShop
-                        form(method='POST')
+                        form(action='/cargos/search')
                             .mdl-textfield.mdl-js-textfield.mdl-textfield--expandable.cargo_search.mdl-textfield--floating-label.mdl-textfield--align-right
                                 input#fixed-header-drawer-exp.mdl-textfield__input(type='text', name='search').cargo__text_input
                                 button.mdl-button.mdl-js-button.mdl-button--icon(for='fixed-header-drawer-exp',type='submit')

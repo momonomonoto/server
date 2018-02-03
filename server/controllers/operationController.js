@@ -23,7 +23,7 @@ module.exports = {
         const id = shortId.generate();
       },
       searchItem(req, res) {
-        const search = req.body.search;
+          const search = new RegExp(req.query.search, 'gi');
         modelMongo.find({ title: search }).then((cargos) => {
           res.render('cargos/index', { cargos });
         });
@@ -107,23 +107,28 @@ module.exports = {
       createCommentary(req, res) {
         const { title, text } = req.body;
         const { id, _id } = req.params;
+        const description = text;
         // const resultElem = createCommentary(items, id, text, title);
         // modelMongo.findByIdAndUpdate(id, { $set: { size: 'large' } }, { new: true }, (err, resultElem) => {
         //   if (err) return err;
         //   res.render('cargo/index', { cargo: resultElem });
         // });
+          console.log(id,'idid')
         modelMongo.findOne({ id }, (err, elem) => {
-          console.log(elem, 'elemelem');
-          elem.set({ commentaries: [] });
-          elem.save((err, newElem) => {
-            if (err) return;
-            res.render('cargo/index', { cargo: elem });
+          elem.commentaries.push({ title, description });
+
+            elem.save((err, elem) => {
+             console.log(elem,'new elem');
+             console.log(err,'err');
+             // if (err) return;
+            res.redirect('/cargos/');
           });
         });
-        const query = { id };
-        modelMongo.findOneAndUpdate(query, { commentaries: { title, text } }, (err, elem) => {
-          return res.render('cargo/index', { cargo: elem });
-        });
+        // const query = { id };
+        //
+        // modelMongo.findOneAndUpdate(query, { commentaries: { title, text } }, (err, elem) => {
+        //   return res.render('cargo/index', { cargo: elem });
+        // });
 
         //   modelMongo.findOne({ id }, (err, elem) => {
         //       // elem.commentaries = elem.commentaries.push({ title, text });

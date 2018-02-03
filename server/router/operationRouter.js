@@ -3,9 +3,10 @@ const operationController = require('../controllers/operationController');
 
 const router = express.Router();
 
-function setRouter(items) {
-  const itemController = operationController.setControllerOperation(items);
+function setRouter() {
+  const itemController = operationController.setControllerOperation();
   router.get('/', itemController.showItems);
+  router.get('/search', itemController.searchItem);
   router.get('/delete', itemController.deleteItems);
   router.get('/edit', itemController.editItem);
   router.get('/add', itemController.addItem);

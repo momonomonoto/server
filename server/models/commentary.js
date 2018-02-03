@@ -8,8 +8,7 @@ const commentary = new Schema({
   author: String,
   description: String,
   select: Boolean,
-  id: Number,
-  _id: String
+  id: Number
 });
-const modelCommentary = mongoose.model('commentaries', commentary);
-module.exports = modelCommentary;
+
+module.exports = commentary;
