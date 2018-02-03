@@ -1,13 +1,12 @@
 const express = require('express');
 const operationController = require('../controllers/operationController');
-const items = require('../data/items');
 
 const router = express.Router();
 
-function setRouter(items) {
-  const itemController = operationController.setControllerOperation(items);
+function setRouter() {
+  const itemController = operationController.setControllerOperation();
   router.get('/:categoryParam', itemController.searchCategory);
   return router;
 }
-const resultRouter = setRouter(items);
+const resultRouter = setRouter();
 module.exports = resultRouter;
