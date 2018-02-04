@@ -5,14 +5,9 @@ const Schema = mongoose.Schema;
 
 const aboutCollection = new Schema({
   title: String,
-  category: String,
   description: String,
-  select: Boolean,
-  commentaries: [],
-  id: Number,
-  _id: String
-});
+},{collection:'about'});
 
-const modelAbout = mongoose.model('aboutCollection', aboutCollection);
+const modelAbout = mongoose.model('about', aboutCollection);
 
 module.exports = modelAbout;

@@ -14,7 +14,7 @@ module.exports = {
       showAboutInformation(req, res) {
         modelAbout.find().then((aboutItem) => {
           console.log(aboutItem,'aboutItem');
-          res.render('about/index', { cargo: aboutItem });
+          res.render('about/index', { cargo: aboutItem[0] });
         });
       },
       deleteItems(req, res) {

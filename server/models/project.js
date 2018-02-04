@@ -12,6 +12,6 @@ const project = new Schema({
   commentaries: [],
   id: Number,
   _id: String
-});
+},{collection:'projects'});
 const modelMongo = mongoose.model('projects', project);
 module.exports = modelMongo;
