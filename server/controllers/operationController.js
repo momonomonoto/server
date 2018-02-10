@@ -12,7 +12,7 @@ module.exports = {
   setControllerOperation(param) {
     return {
       showMainPage(req,res) {
-          res.render('main/index', { title: 'Hey', message: 'Hello there!' });
+        res.render('main/index', { title: 'Hey', message: 'Hello there!' });
       },
       showAboutInformation(req, res) {
         modelAbout.find().then((aboutItem) => {
@@ -20,15 +20,15 @@ module.exports = {
         });
       },
       showForm(req, res) {
-            const {formName} = param;
-              res.render('authorization/index', { formRestore: true, formName });
+        const {formName} = param;
+        res.render('authorization/index', { formRestore: true, formName });
       },
       showProfile(req, res,next) {
-          modelUser.findById(req.cookies.userId)
-              .then(user => {
-                  res.render('profile/index', { name: user.name, email: user.email });
-              })
-              .catch(next);
+        modelUser.findById(req.cookies.userId)
+          .then(user => {
+              res.render('profile/index', { name: user.name, email: user.email });
+          })
+          .catch(next);
       },
       deleteItems(req, res) {
         const queryItemId = Number(Object.keys(req.query)[0]);
@@ -51,10 +51,10 @@ module.exports = {
       searchCategory(req, res, next) {
         const { categoryParam } = req.params;
         modelMongo.find({ category: categoryParam })
-              .then(resultList => {
-                res.render('projects/index', { projects: resultList });
-              })
-            .catch(next);
+          .then(resultList => {
+            res.render('projects/index', { projects: resultList });
+          })
+          .catch(next);
       },
       showItems(req, res, next) {
         modelMongo.find().then((projects) => {
@@ -64,10 +64,10 @@ module.exports = {
       showItem(req, res, next) {
         const { id } = req.params;
         modelMongo.findOne({ id })
-              .then(item => {
-                res.render('project/index', { project: item });
-              })
-              .catch(next);
+          .then(item => {
+            res.render('project/index', { project: item });
+          })
+          .catch(next);
       },
       selectItem(req, res) {
         const { idList } = req.params;
@@ -87,7 +87,6 @@ module.exports = {
         const description = text;
         modelMongo.findOne({ id }, (err, elem) => {
           elem.commentaries.push({ title, description });
-
           elem.save((err, elem) => {
              // if (err) return;
             res.redirect('/projects/');
@@ -100,27 +99,25 @@ module.exports = {
       authorization(req, res, next) {
         const { password, name } = req.body;
         modelUser.findOne({ name, password })
-              .then(user => {
-                res.cookie('userId', user.id);
-                res.redirect('/profile/');
-              })
-            .catch(() => {
-              res.redirect('/projects/');
-            }
-            );
+          .then(user => {
+            res.cookie('userId', user.id);
+            res.redirect('/profile/');
+          })
+          .catch(() => {
+            res.redirect('/projects/');
+          });
       },
       register(req, res, next) {
         const { password, name } = req.body;
         modelUser.create({ name, password })
-              .then(user => {
-                res.session.userId = user.id;
-                res.cookie('userId', user.id);
-                res.redirect('/profile/');
-              })
-              .catch(() => {
-                res.redirect('/projects/');
-              }
-              );
+          .then(user => {
+            res.session.userId = user.id;
+            res.cookie('userId', user.id);
+            res.redirect('/profile/');
+          })
+          .catch(() => {
+            res.redirect('/projects/');
+          });
       }
     };
   }

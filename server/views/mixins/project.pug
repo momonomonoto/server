@@ -1,6 +1,6 @@
 include project-commentary
 
-mixin aboutProject(project)
+mixin project(project,hideButton)
         main
             .demo-container.mdl-grid
                 .mdl-cell.mdl-cell--2-col.mdl-cell--hide-tablet.mdl-cell--hide-phone
@@ -9,6 +9,7 @@ mixin aboutProject(project)
                     h3=project.title
                     p=project.description
                     .commentary-container
+                    if !hideButton
                         a.mdl-navigation__link(href=`/projects/add_commentary/${project.id}`)
                             button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored
                                 | Add commentary
