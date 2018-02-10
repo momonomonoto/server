@@ -4,13 +4,9 @@ const operationController = require('../controllers/operationController');
 const router = express.Router();
 
 function setRouter() {
-  const itemController = operationController.setControllerOperation();
-
-  router.get('/', (req, res) => {
-    res.render('form/index', { formRestore: true, formName: 'Register' });
-  });
-  router.post('/', itemController.register);
-
+  const itemController = operationController.setControllerOperation({formName: 'Login'});
+  router.get('/', itemController.showForm);
+  router.post('/', itemController.authorization);
   return router;
 }
 const resultRouter = setRouter();

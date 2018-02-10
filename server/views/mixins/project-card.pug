@@ -1,14 +1,14 @@
 include card
 
-mixin cargo-card(cargo)
-    +card(class='cargo-cargos red' id=cargo.id).cargo_card
+mixin project-card(project)
+    +card(class='project-projects red' id=project.id).project_card
         .demo-card-wide.mdl-card.mdl-shadow--2dp
             .mdl-card__title
-                h2.mdl-card__title-text=cargo.title
+                h2.mdl-card__title-text=project.title
             .mdl-card__supporting-text.card_supporting-text
-                p=cargo.description
+                p=project.description
             .mdl-card__actions.mdl-card--border
-                a.mdl-navigation__link(href=`/cargos/${cargo.id}`).mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect
+                a.mdl-navigation__link(href=`/projects/${project.id}`).mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect
                     | More
             .mdl-card__menu
                 button.mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect

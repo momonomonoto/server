@@ -9,13 +9,26 @@ const modelAbout = require('../models/about');
 const safeObjectId = s => ObjectId.isValid(s) ? new ObjectId(s) : null;
 
 module.exports = {
-  setControllerOperation(items, param) {
+  setControllerOperation(param) {
     return {
+      showMainPage(req,res) {
+          res.render('main/index', { title: 'Hey', message: 'Hello there!' });
+      },
       showAboutInformation(req, res) {
         modelAbout.find().then((aboutItem) => {
-          console.log(aboutItem,'aboutItem');
-          res.render('about/index', { cargo: aboutItem[0] });
+          res.render('about/index', { project: aboutItem[0] });
         });
+      },
+      showForm(req, res) {
+            const {formName} = param;
+              res.render('form/index', { formRestore: true, formName });
+      },
+      showProfile(req, res,next) {
+          modelUser.findById(req.cookies.userId)
+              .then(user => {
+                  res.render('profile/index', { name: user.name, email: user.email });
+              })
+              .catch(next);
       },
       deleteItems(req, res) {
         const queryItemId = Number(Object.keys(req.query)[0]);
@@ -31,76 +44,33 @@ module.exports = {
       },
       searchItem(req, res) {
         const search = new RegExp(req.query.search, 'gi');
-        modelMongo.find({ title: search }).then((cargos) => {
-          res.render('cargos/index', { cargos });
+        modelMongo.find({ title: search }).then((projects) => {
+          res.render('projects/index', { projects });
         });
       },
       searchCategory(req, res, next) {
         const { categoryParam } = req.params;
         modelMongo.find({ category: categoryParam })
               .then(resultList => {
-                res.render('cargos/index', { cargos: resultList });
+                res.render('projects/index', { projects: resultList });
               })
             .catch(next);
       },
       showItems(req, res, next) {
-        modelMongo.find().then((cargos) => {
-          res.render('cargos/index', { cargos });
+        modelMongo.find().then((projects) => {
+          res.render('projects/index', { projects });
         });
       },
       showItem(req, res, next) {
         const { id } = req.params;
         modelMongo.findOne({ id })
               .then(item => {
-                res.render('cargo/index', { cargo: item });
+                res.render('project/index', { project: item });
               })
               .catch(next);
       },
       selectItem(req, res) {
         const { idList } = req.params;
-        // const selectArrIdList = (items, idList) => {
-        //   const resultList = items.map((elemList, index) => {
-        //     const { select } = elemList;
-        //     const newSelect = !select;
-        //     if (idList.includes(elemList)) {
-        //       const newElemList = Object.assign({}, elemList, { select: newSelect });
-        //       return newElemList;
-        //     }
-        //     return elemList;
-        //   });
-        //   return resultList;
-        // };
-        //
-        // const trasformIdListToArray = (idList) => {
-        //   const idListArray = idList.match(/,/g);
-        //   if (idListArray) {
-        //     const resultIdList = idList.split();
-        //     return resultIdList;
-        //   }
-        //   return idList;
-        // };
-        //
-        // const selectStringId = (arrId) => {
-        //   const arrList = arrId.map(elemItem => {
-        //     const { select } = elemItem;
-        //     const newSelect = !select;
-        //     if (elemItem.id === Number(idList)) {
-        //       const resultElem = Object.assign({}, elemItem, { select: true });
-        //       return resultElem;
-        //     }
-        //     return elemItem;
-        //   });
-        //   return arrList;
-        // };
-        //
-        // const elemId = trasformIdListToArray(idList);
-        // if (Array.isArray(elemId)) {
-        //   const resultList = selectArrIdList(items, elemId);
-        //   res.send(resultList);
-        // } else {
-        //   const resultList = selectStringId(items, elemId);
-        //   res.send(resultList);
-        // }
       },
       showCommentaryForm(req, res) {
         res.render('commentaryForm/index');
@@ -115,34 +85,14 @@ module.exports = {
         const { title, text } = req.body;
         const { id, _id } = req.params;
         const description = text;
-        // const resultElem = createCommentary(items, id, text, title);
-        // modelMongo.findByIdAndUpdate(id, { $set: { size: 'large' } }, { new: true }, (err, resultElem) => {
-        //   if (err) return err;
-        //   res.render('cargo/index', { cargo: resultElem });
-        // });
-        console.log(id, 'idid');
         modelMongo.findOne({ id }, (err, elem) => {
           elem.commentaries.push({ title, description });
 
           elem.save((err, elem) => {
-            console.log(elem, 'new elem');
-            console.log(err, 'err');
              // if (err) return;
-            res.redirect('/cargos/');
+            res.redirect('/projects/');
           });
         });
-        // const query = { id };
-        //
-        // modelMongo.findOneAndUpdate(query, { commentaries: { title, text } }, (err, elem) => {
-        //   return res.render('cargo/index', { cargo: elem });
-        // });
-
-        //   modelMongo.findOne({ id }, (err, elem) => {
-        //       // elem.commentaries = elem.commentaries.push({ title, text });
-        //     elem.save({ commentaries: elem.commentaries.push({ title, text }) });
-        //     modelMongo.update(elem)
-        //   res.render('cargo/index', { cargo: elem });
-        // });
       },
       editCommentary(req, res) {
         const { id, commentaryId, commentaryContext } = req.params;
@@ -155,13 +105,12 @@ module.exports = {
                 res.redirect('/profile/');
               })
             .catch(() => {
-              res.redirect('/cargos/');
+              res.redirect('/projects/');
             }
             );
       },
       register(req, res, next) {
         const { password, name } = req.body;
-        res.redirect('/cargos/');
         modelUser.create({ name, password })
               .then(user => {
                 res.session.userId = user.id;
@@ -169,7 +118,7 @@ module.exports = {
                 res.redirect('/profile/');
               })
               .catch(() => {
-                res.redirect('/cargos/');
+                res.redirect('/projects/');
               }
               );
       }

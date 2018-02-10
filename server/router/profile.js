@@ -5,7 +5,7 @@ const router = Router();
 
 function setRouter() {
     const itemController = operationController.setControllerOperation();
-    router.get('/', itemController.showMainPage);
+    router.get('/', itemController.showProfile);
     return router;
 }
 const resultRouter = setRouter();
