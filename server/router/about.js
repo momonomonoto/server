@@ -4,8 +4,8 @@ const operationController = require('../controllers/operationController');
 const router = express.Router();
 
 function setRouter() {
-  const itemController = operationController.setControllerOperation();
-  router.get('/', itemController.showAboutInformation);
+  const aboutController = operationController.setControllerOperation();
+  router.get('/', aboutController.showAboutInformation);
   return router;
 }
 const resultRouter = setRouter();

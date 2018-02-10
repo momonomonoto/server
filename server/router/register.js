@@ -4,9 +4,9 @@ const operationController = require('../controllers/operationController');
 const router = express.Router();
 
 function setRouter() {
-  const itemController = operationController.setControllerOperation({formName: 'Register'});
-  router.get('/', itemController.showAuthForm);
-  router.post('/', itemController.register);
+  const registerController = operationController.setControllerOperation({formName: 'Register'});
+  router.get('/', registerController.showAuthForm);
+  router.post('/', registerController.register);
   return router;
 }
 const resultRouter = setRouter();

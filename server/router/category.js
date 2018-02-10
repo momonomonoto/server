@@ -4,8 +4,8 @@ const operationController = require('../controllers/operationController');
 const router = express.Router();
 
 function setRouter() {
-  const itemController = operationController.setControllerOperation();
-  router.get('/:categoryParam', itemController.searchCategory);
+  const categoryController = operationController.setControllerOperation();
+  router.get('/:categoryParam', categoryController.searchCategory);
   return router;
 }
 const resultRouter = setRouter();
