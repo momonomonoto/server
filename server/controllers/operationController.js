@@ -21,7 +21,7 @@ module.exports = {
       },
       showForm(req, res) {
             const {formName} = param;
-              res.render('form/index', { formRestore: true, formName });
+              res.render('authorization/index', { formRestore: true, formName });
       },
       showProfile(req, res,next) {
           modelUser.findById(req.cookies.userId)
@@ -73,7 +73,7 @@ module.exports = {
         const { idList } = req.params;
       },
       showCommentaryForm(req, res) {
-        res.render('commentaryForm/index');
+        res.render('addCommentary/index');
       },
       showCommentary(req, res) {
         const { id } = req.params;

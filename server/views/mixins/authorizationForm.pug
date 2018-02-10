@@ -1,6 +1,6 @@
 include project-commentary
 
-mixin aboutCard(form)
+mixin authorizationForm(form,titleName, titleText)
     .mdl-layout.mdl-js-layout.mdl-color--grey-100
         main.mdl-layout__content.mdl-grid
             .mdl-card.mdl-shadow--6dp.mdl-cell.mdl-cell--6-col.login_form
@@ -9,10 +9,10 @@ mixin aboutCard(form)
                 .mdl-card__supporting-text
                     form(method='POST')
                         .mdl-textfield.mdl-js-textfield
-                            input#username.mdl-textfield__input(type='text',name='name')
+                            input#username.mdl-textfield__input(type='text',name=titleName)
                             label.mdl-textfield__label(for='username') Username
                         .mdl-textfield.mdl-js-textfield
-                            input#userpass.mdl-textfield__input(type='text',name='password')
+                            input#userpass.mdl-textfield__input(type='text',name=titleText)
                             label.mdl-textfield__label(for='userpass') Password
                         .mdl-card__actions.mdl-card--border
                             button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit') OK
