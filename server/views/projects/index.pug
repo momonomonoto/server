@@ -1,0 +1,7 @@
+extends ../layout
+
+include ../mixins/project-card
+
+block content
+   for project in projects
+            +project-card(project)

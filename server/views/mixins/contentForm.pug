@@ -1,6 +1,6 @@
-extends ../layout
+include project-commentary
 
-block content
+mixin contentForm(form,titleName, titleText)
     .mdl-layout.mdl-js-layout.mdl-color--grey-100
         main.mdl-layout__content.mdl-grid
             .mdl-card.mdl-shadow--6dp.mdl-cell.mdl-cell--12-col.login_form
@@ -15,4 +15,5 @@ block content
                             textarea#sample5.mdl-textfield__input(type='text', rows='3', name='text')
                             label.mdl-textfield__label(for='sample5') Commentary
                         button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit')
-                            |OK
+                            | OK
+

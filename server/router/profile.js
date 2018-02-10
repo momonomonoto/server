@@ -4,8 +4,8 @@ const operationController = require('../controllers/operationController');
 const router = Router();
 
 function setRouter() {
-    const mainController = operationController.setControllerOperation();
-    router.get('/', mainController.showMainPage);
+    const profileController = operationController.setControllerOperation();
+    router.get('/', profileController.showProfile);
     return router;
 }
 const resultRouter = setRouter();

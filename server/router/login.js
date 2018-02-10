@@ -4,8 +4,9 @@ const operationController = require('../controllers/operationController');
 const router = express.Router();
 
 function setRouter() {
-  const categoryController = operationController.setControllerOperation();
-  router.get('/:categoryParam', categoryController.searchCategory);
+  const loginController = operationController.setControllerOperation({formName: 'Login'});
+  router.get('/', loginController.showAuthForm);
+  router.post('/', loginController.authorization);
   return router;
 }
 const resultRouter = setRouter();
