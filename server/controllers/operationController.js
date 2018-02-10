@@ -19,7 +19,7 @@ module.exports = {
           res.render('about/index', { project: aboutItem[0] });
         });
       },
-      showForm(req, res) {
+      showAuthForm(req, res) {
         const {formName} = param;
         res.render('authorization/index', { formRestore: true, formName });
       },
@@ -42,7 +42,7 @@ module.exports = {
         const titleItems = Object.getOwnPropertyNames(req.query).join();
         const id = shortId.generate();
       },
-      searchItem(req, res) {
+      searchProjects(req, res) {
         const search = new RegExp(req.query.search, 'gi');
         modelMongo.find({ title: search }).then((projects) => {
           res.render('projects/index', { projects });
@@ -56,12 +56,12 @@ module.exports = {
           })
           .catch(next);
       },
-      showItems(req, res, next) {
+        showProjects(req, res, next) {
         modelMongo.find().then((projects) => {
           res.render('projects/index', { projects });
         });
       },
-      showItem(req, res, next) {
+      showProject(req, res, next) {
         const { id } = req.params;
         modelMongo.findOne({ id })
           .then(item => {

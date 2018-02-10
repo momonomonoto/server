@@ -5,7 +5,7 @@ const router = express.Router();
 
 function setRouter() {
   const itemController = operationController.setControllerOperation({formName: 'Login'});
-  router.get('/', itemController.showForm);
+  router.get('/', itemController.showAuthForm);
   router.post('/', itemController.authorization);
   return router;
 }
