@@ -1,7 +1,8 @@
 const path = require('path');
 
 module.exports = {
-  path: {
+    sessionSecret: 'HacJmB3ma6crKKtK',
+    path: {
     view: path.resolve(__dirname, 'views'),
     static: path.resolve(__dirname, 'public')
   },
