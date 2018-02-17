@@ -100,7 +100,7 @@ module.exports = {
         const { password, name } = req.body;
         modelUser.findOne({ name, password })
           .then(user => {
-            res.session.userId=user.id;
+            req.session.userId=user.id;
             res.redirect('/profile/');
           })
           .catch(() => {
@@ -111,7 +111,7 @@ module.exports = {
         const { password, name } = req.body;
         modelUser.create({ name, password })
           .then(user => {
-            res.session.userId = user.id;
+            req.session.userId = user._id;
             res.redirect('/profile/');
           })
           .catch(() => {
