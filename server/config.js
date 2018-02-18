@@ -8,5 +8,6 @@ module.exports = {
   },
   mongodbUri: {
       local: 'mongodb://localhost:27017/shop',
+      mlab:'mongodb://user:user@ds239648.mlab.com:39648/tes'
   },
 };

@@ -30,7 +30,7 @@ server.use(session({
     cookie: {},
     store: new MongoStore({
         mongooseConnection: db.connection,
-        url: config.mongodbUri.local,
+        url: config.mongodbUri.mlab,
         ttl: 60 * 60 * 24 * 3, // 3 days
         touchAfter: 60 * 60 * 24 // 1 day
     })
