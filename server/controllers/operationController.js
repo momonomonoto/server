@@ -24,11 +24,11 @@ module.exports = {
         res.render('authorization/index', { formRestore: true, formName });
       },
       showProfile(req, res,next) {
-        modelUser.findById(req.cookies.userId)
-          .then(user => {
-              res.render('profile/index', { name: user.name, email: user.email });
-          })
-          .catch(next);
+          modelUser.findById(req.session.userId)
+              .then(user => {
+                  res.render('profile/index', {name: user.name, email: user.email});
+              })
+              .catch(next);
       },
       deleteItems(req, res) {
         const queryItemId = Number(Object.keys(req.query)[0]);
@@ -56,7 +56,7 @@ module.exports = {
           })
           .catch(next);
       },
-        showProjects(req, res, next) {
+      showProjects(req, res, next) {
         modelMongo.find().then((projects) => {
           res.render('projects/index', { projects });
         });
@@ -100,7 +100,7 @@ module.exports = {
         const { password, name } = req.body;
         modelUser.findOne({ name, password })
           .then(user => {
-            res.cookie('userId', user.id);
+            req.session.userId=user.id;
             res.redirect('/profile/');
           })
           .catch(() => {
@@ -111,8 +111,7 @@ module.exports = {
         const { password, name } = req.body;
         modelUser.create({ name, password })
           .then(user => {
-            res.session.userId = user.id;
-            res.cookie('userId', user.id);
+            req.session.userId = user._id;
             res.redirect('/profile/');
           })
           .catch(() => {
