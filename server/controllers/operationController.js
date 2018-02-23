@@ -24,8 +24,11 @@ module.exports = {
         res.render('authorization/index', { formRestore: true, formName });
       },
       showProfile(req, res, next) {
-        const userId = req.session.passport.user;
-        modelUser.findById(userId)
+        if (Boolean(req.session.passport) === false) {
+          return res.render('profile/index', { name: 'not autorized user', email: '' });
+        }
+        const { session: { passport: { user } } } = req;
+        modelUser.findById(user)
               .then(user => {
                 res.render('profile/index', { name: user.name, email: user.email });
               })
@@ -97,7 +100,7 @@ module.exports = {
       editCommentary(req, res) {
         const { id, commentaryId, commentaryContext } = req.params;
       },
-      authorization(req, res, next) {
+      authorization(req, res) {
         const { password, name } = req.body;
         modelUser.findOne({ name, password })
           .then(user => {
@@ -108,7 +111,11 @@ module.exports = {
             res.redirect('/');
           });
       },
-      register(req, res, next) {
+      logout(req, res) {
+        req.session.destroy();
+        res.redirect('/profile/user');
+      },
+      register(req, res) {
         const { password, name } = req.body;
         modelUser.create({ name, password })
           .then(user => {

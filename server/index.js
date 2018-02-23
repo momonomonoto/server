@@ -7,6 +7,7 @@ const projects = require('./router/projects');
 const main = require('./router/main');
 const about = require('./router/about');
 const login = require('./router/login');
+const logout = require('./router/logout');
 const profile = require('./router/profile');
 const categoryRouter = require('./router/category');
 const register = require('./router/register');
@@ -44,6 +45,7 @@ server.use('/category', categoryRouter);
 server.use('/about', about);
 server.use('/login', login);
 server.use('/register', register);
+server.use('/logout', logout);
 
 server.use('/profile', profile);
 
