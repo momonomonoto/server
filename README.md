@@ -10,7 +10,9 @@
 /add_commentary/:id. Add commentary.  Пост-запрос для добавления комментария. 
 /category/:categoryParam. Find project. Пост-запрос для поиска проектов по категориям. 
 /about. About project. Информация о проекте.
-/login. Login form. Информация для входа в административную часть проекта.
+/login. Login form. Авторизация юзера.
+/register. Register form.  Регистрация пользователя.
+/logout. Register form. Завершение сеанса пользователя.
 ```
 
 
