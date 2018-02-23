@@ -24,7 +24,8 @@ module.exports = {
         res.render('authorization/index', { formRestore: true, formName });
       },
       showProfile(req, res,next) {
-          modelUser.findById(req.session.userId)
+          const userId = req.session.passport.user;
+          modelUser.findById(userId)
               .then(user => {
                   res.render('profile/index', {name: user.name, email: user.email});
               })
