@@ -5,7 +5,7 @@
 
 ```bash
 /: project pages. Страница проектов
-/:id: project card. Карточка товара
+/:id: project card. Карточка проекта
 /add_commentary/:id. Commentary form. Форма для добавления комментария.
 /add_commentary/:id. Add commentary.  Пост-запрос для добавления комментария. 
 /category/:categoryParam. Find project. Пост-запрос для поиска проектов по категориям. 
