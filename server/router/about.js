@@ -1,11 +1,11 @@
 const express = require('express');
-const operationController = require('../controllers/operationController');
+const operationController = require('../controllers/index');
 
 const router = express.Router();
 
 function setRouter() {
   const aboutController = operationController.setControllerOperation();
-  router.get('/', aboutController.showAboutInformation);
+  router.get('/info', aboutController.showAboutInformation);
   return router;
 }
 const resultRouter = setRouter();

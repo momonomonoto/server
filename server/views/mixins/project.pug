@@ -10,7 +10,7 @@ mixin project(project,hideButton)
                     p=project.description
                     .commentary-container
                     if !hideButton
-                        a.mdl-navigation__link(href=`/projects/add_commentary/${project.id}`)
+                        a.mdl-navigation__link(href=`/add_commentary/${project.id}`)
                             button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored
                                 | Add commentary
                     if project.commentaries

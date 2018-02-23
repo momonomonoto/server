@@ -1,12 +1,12 @@
 const express = require('express');
-const operationController = require('../controllers/operationController');
+const operationController = require('../controllers/index');
+const passport = require('../services/passport');
 
 const router = express.Router();
-
 function setRouter() {
-  const loginController = operationController.setControllerOperation({formName: 'Login'});
-  router.get('/', loginController.showAuthForm);
-  router.post('/', loginController.authorization);
+  const loginController = operationController.setControllerOperation({ formName: 'Login' });
+  router.get('/form', loginController.showAuthForm);
+  router.post('/form', passport.authenticate('local-login', { failureRedirect: '/', successRedirect: '/profile/user' }));
   return router;
 }
 const resultRouter = setRouter();
