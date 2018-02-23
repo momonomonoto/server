@@ -4,7 +4,6 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const passport = require('./services/passport');
 const projects = require('./router/projects');
-const main = require('./router/main');
 const about = require('./router/about');
 const login = require('./router/login');
 const logout = require('./router/logout');
@@ -17,7 +16,6 @@ const session = require('express-session');
 const server = express();
 const db = require('./services/db.js');
 const MongoStore = require('connect-mongo')(session);
-const auth = require('./middlewares/auth');
 
 server.use(express.static(config.path.view));
 // server.use(cookieParser());

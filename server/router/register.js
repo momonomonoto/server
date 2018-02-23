@@ -1,5 +1,5 @@
 const express = require('express');
-const operationController = require('../controllers/operationController');
+const operationController = require('../controllers/index');
 const passport = require('../services/passport');
 
 const router = express.Router();
