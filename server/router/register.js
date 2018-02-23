@@ -6,8 +6,8 @@ const router = express.Router();
 
 function setRouter() {
   const registerController = operationController.setControllerOperation({formName: 'Register'});
-  router.get('/', registerController.showAuthForm);
-  router.post('/', passport.authenticate('local-register', { failureRedirect: '/projects', successRedirect: '/profile' }));
+  router.get('/form', registerController.showAuthForm);
+  router.post('/form', passport.authenticate('local-register', { failureRedirect: '/', successRedirect: '/profile/user' }));
   return router;
 }
 const resultRouter = setRouter();

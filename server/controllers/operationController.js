@@ -11,7 +11,7 @@ const safeObjectId = s => ObjectId.isValid(s) ? new ObjectId(s) : null;
 module.exports = {
   setControllerOperation(param) {
     return {
-      showMainPage(req,res) {
+      showMainPage(req, res) {
         res.render('main/index', { title: 'Hey', message: 'Hello there!' });
       },
       showAboutInformation(req, res) {
@@ -20,14 +20,14 @@ module.exports = {
         });
       },
       showAuthForm(req, res) {
-        const {formName} = param;
+        const { formName } = param;
         res.render('authorization/index', { formRestore: true, formName });
       },
-      showProfile(req, res,next) {
-          const userId = req.session.passport.user;
-          modelUser.findById(userId)
+      showProfile(req, res, next) {
+        const userId = req.session.passport.user;
+        modelUser.findById(userId)
               .then(user => {
-                  res.render('profile/index', {name: user.name, email: user.email});
+                res.render('profile/index', { name: user.name, email: user.email });
               })
               .catch(next);
       },
@@ -90,7 +90,7 @@ module.exports = {
           elem.commentaries.push({ title, description });
           elem.save((err, elem) => {
              // if (err) return;
-            res.redirect('/projects/');
+            res.redirect('/');
           });
         });
       },
@@ -101,11 +101,11 @@ module.exports = {
         const { password, name } = req.body;
         modelUser.findOne({ name, password })
           .then(user => {
-            req.session.userId=user.id;
-            res.redirect('/profile/');
+            req.session.userId = user.id;
+            res.redirect('/profile/user');
           })
           .catch(() => {
-            res.redirect('/projects/');
+            res.redirect('/');
           });
       },
       register(req, res, next) {
@@ -113,10 +113,10 @@ module.exports = {
         modelUser.create({ name, password })
           .then(user => {
             req.session.userId = user._id;
-            res.redirect('/profile/');
+            res.redirect('/profile/user');
           })
           .catch(() => {
-            res.redirect('/projects/');
+            res.redirect('/');
           });
       }
     };
