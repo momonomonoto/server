@@ -8,6 +8,8 @@ const about = require('./router/about');
 const login = require('./router/login');
 const logout = require('./router/logout');
 const profile = require('./router/profile');
+const api = require('./api');
+const projectRouter = require('./router/profile');
 const categoryRouter = require('./router/category');
 const register = require('./router/register');
 const config = require('./config');
@@ -46,6 +48,7 @@ server.use('/register', register);
 server.use('/logout', logout);
 
 server.use('/profile', profile);
+server.use('/api', api);
 
 server.listen(3000, () => console.log('Express', 3000));
 

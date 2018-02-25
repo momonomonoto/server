@@ -1,10 +1,13 @@
 const modelProjects = require('../models/project');
 
 module.exports = {
-  showProjects(req, res, next) {
+  showProjects: (param) => (req, res, next) => {
+    const { apiRequest } = param || false;
     modelProjects.find().then((projects) => {
+      if (apiRequest) return res.json(projects);
       res.render('projects/index', { projects });
-    });
+    })
+    .catch(err => res.status(500));
   },
   showProject(req, res, next) {
     const { id } = req.params;

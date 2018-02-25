@@ -7,7 +7,7 @@ const { showAuthForm, register, authorization, logout } = require('./auth');
 module.exports = {
   setControllerOperation(param) {
     return {
-      showProjects,
+      showProjects: showProjects(param),
       showProject,
       searchCategory,
       searchProjects,

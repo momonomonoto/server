@@ -2,7 +2,7 @@ const modelUser = require('../models/users');
 
 module.exports = {
   showAuthForm: (param) => (req, res) => {
-    const { formName = 'register' } = param;
+    const { formName } = param;
     res.render('authorization/index', { formRestore: true, formName });
   },
   register(req, res) {
