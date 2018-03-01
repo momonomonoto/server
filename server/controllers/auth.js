@@ -20,12 +20,17 @@ module.exports = {
   },
   authorization(req, res) {
     const { password, name } = req.body;
-    modelUser.findOne({ name, password })
+    console.log(req.body,'req.body.passport');
+    modelUser.findOne({ name })
       .then(user => {
+          if (!user) throw new Error('user not find');
         req.session.userId = user.id;
+        console.log(req.session.userId,'req.session.userId');
+        console.log(user,'user');
         res.redirect('/profile/user');
       })
-      .catch(() => {
+      .catch((err) => {
+          console.log(err,'err');
         res.redirect('/');
       });
   },

@@ -7,6 +7,7 @@ module.exports = {
   createCommentary(req, res) {
     const { title, text } = req.body;
     const { id, _id } = req.params;
+    console.log(id,'id');
     const description = text;
     modelProjects.findOne({ id }, (err, elem) => {
       elem.commentaries.push({ title, description });

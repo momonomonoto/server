@@ -21,7 +21,7 @@ const MongoStore = require('connect-mongo')(session);
 
 server.use(express.static(config.path.view));
 // server.use(cookieParser());
-// server.use(bodyParser.urlencoded({ extended: false }));
+server.use(bodyParser.urlencoded({ extended: false }));
 server.set('views', config.path.view);
 server.set('view engine', 'pug');
 server.use(session({
@@ -39,6 +39,7 @@ server.use(session({
 }));
 server.use(passport.initialize());
 server.use(passport.session());
+server.use(express.json());
 
 server.use('/', projects);
 server.use('/category', categoryRouter);
