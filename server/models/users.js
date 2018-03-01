@@ -20,5 +20,9 @@ user.pre('save', function(next) {
         .catch(next);
 });
 
+user.methods.isCorrectPassword = function(password) {
+    return bcrypt.compare(password, this.password);
+};
+
 const modelUser = mongoose.model('users', user);
 module.exports = modelUser;

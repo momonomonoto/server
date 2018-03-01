@@ -1,4 +1,6 @@
 const modelUser = require('../models/users');
+const { jwtSecret } = require('../config');
+const jwt = require('jwt-simple');
 
 module.exports = {
   showAuthForm: (param) => (req, res) => {
@@ -26,6 +28,22 @@ module.exports = {
       .catch(() => {
         res.redirect('/');
       });
+  },
+  getToken(req, res, next) {
+    // console.log(req,'req.body.password');
+    console.log(req.body,'req.body.password');
+    // if (!req.body.name || !req.body.password) return res.sendStatus(401);
+    modelUser.findOne({ name: res.body.name })
+          .then(user => {
+            if (!user) return res.sendStatus(401);
+            if (!user.isCorrectPassword(req.body.password)) return res.sendStatus(201);
+
+            const payload = { id: user.id };
+            const token = jwt.encode(payload, jwtSecret);
+
+            res.json({ token });
+          })
+          .catch(next);
   },
   logout(req, res) {
     req.session.destroy();

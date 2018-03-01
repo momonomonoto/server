@@ -2,12 +2,14 @@ const { showProjects, showProject, searchProjects, searchCategory } = require('.
 const { showAboutInformation } = require('./about');
 const { showProfile } = require('./profile');
 const { showCommentaryForm, createCommentary } = require('./commentary');
-const { showAuthForm, register, authorization, logout } = require('./auth');
+const { showAuthForm, register, authorization, logout, getToken } = require('./auth');
+const { showUsers } = require('./users');
 
 module.exports = {
   setControllerOperation(param) {
     return {
       showProjects: showProjects(param),
+      getToken,
       showProject,
       searchCategory,
       searchProjects,
@@ -18,7 +20,8 @@ module.exports = {
       authorization,
       logout,
       showCommentaryForm,
-      createCommentary
+      createCommentary,
+      showUsers: showUsers(param)
     };
   }
 };
