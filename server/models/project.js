@@ -1,6 +1,5 @@
 const db = require('../services/db');
 const mongoose = require('mongoose');
-const commentary = require('./commentary');
 
 const Schema = mongoose.Schema;
 
