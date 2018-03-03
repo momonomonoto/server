@@ -20,11 +20,14 @@ passport.use('local-register', new LocalStrategy(options, (name, password, done)
 }));
 
 passport.use('local-login', new LocalStrategy(options, (name, password, done) => {
-    modelUser.findOne({ name, password })
+    modelUser.findOne({ name })
         .then(user => {
-            console.log(user,'new user');
           if (!user) return done(null, false);
-          done(null, user);
+            user.isCorrectPassword(password).then(isEqual=>{
+                 if (!isEqual) return done(null, false);
+                 console.log(user)
+                 done(null, user);
+             });
         }).catch(done);
 }));
 
