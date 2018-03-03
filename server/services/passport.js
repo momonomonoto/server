@@ -25,7 +25,6 @@ passport.use('local-login', new LocalStrategy(options, (name, password, done) =>
           if (!user) return done(null, false);
             user.isCorrectPassword(password).then(isEqual=>{
                  if (!isEqual) return done(null, false);
-                 console.log(user)
                  done(null, user);
              });
         }).catch(done);
