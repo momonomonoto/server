@@ -2,6 +2,7 @@ const path = require('path');
 
 module.exports = {
   sessionSecret: 'HacJmB3ma6crKKtK',
+  jwtSecret: 'louhUG^LmgL##pi4256skl4',
   path: {
     view: path.resolve(__dirname, 'views'),
     static: path.resolve(__dirname, 'public')

@@ -1,6 +1,5 @@
 const db = require('../services/db');
 const mongoose = require('mongoose');
-const commentary = require('./commentary');
 
 const Schema = mongoose.Schema;
 
@@ -9,7 +8,7 @@ const project = new Schema({
   category: String,
   description: String,
   select: Boolean,
-  commentaries: [],
+  commentaries: Array,
   id: Number,
   _id: String
 },{collection:'projects'});
