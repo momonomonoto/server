@@ -1,4 +1,4 @@
-const modelProjects = require('../models/about');
+const modelProjects = require('../models/project');
 
 module.exports = {
   showCommentaryForm(req, res) {
@@ -6,14 +6,14 @@ module.exports = {
   },
   createCommentary(req, res) {
     const { title, text } = req.body;
-    const { id, _id } = req.params;
-    console.log(id,'id');
+    const { id } = req.params;
     const description = text;
-    modelProjects.findOne({ id }, (err, elem) => {
-      elem.commentaries.push({ title, description });
-      elem.save((err, elem) => {
-        res.redirect('/');
+      modelProjects.findOne({ id }, (err, elem) => {
+        if (Boolean(id) === false) throw new Error('Id is not valid');
+        const commentaries = [].concat(elem.commentaries,[{title,description}]);
+        modelProjects.update({id}, {commentaries}, () => {res.redirect(`/${id}`);})
       });
-    });
+
   }
 };
+

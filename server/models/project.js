@@ -9,7 +9,7 @@ const project = new Schema({
   category: String,
   description: String,
   select: Boolean,
-  commentaries: [],
+  commentaries: Array,
   id: Number,
   _id: String
 },{collection:'projects'});
