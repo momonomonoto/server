@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const api = express();
 api.use(bodyParser.urlencoded({ extended: false }));
 api.use('/token', tokenRouter);
-// api.use(passport.authenticate('jwt', { session: false }));
+api.use(passport.authenticate('jwt', { session: false }));
 api.use('/projects', projectsRouter);
 api.use('/users', usersRouter);
 

@@ -5,7 +5,7 @@ const router = express.Router();
 
 function setRouter() {
   const projectController = operationController.setControllerOperation({ apiRequest: true });
-  router.get('/', projectController.showProjects);
+  router.post('/', projectController.showProjects);
   return router;
 }
 

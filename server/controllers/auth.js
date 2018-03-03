@@ -20,13 +20,10 @@ module.exports = {
   },
   authorization(req, res) {
     const { password, name } = req.body;
-    console.log(req.body,'req.body.passport');
     modelUser.findOne({ name })
       .then(user => {
-          if (!user) throw new Error('user not find');
+        if (!user) throw new Error('user not find');
         req.session.userId = user.id;
-        console.log(req.session.userId,'req.session.userId');
-        console.log(user,'user');
         res.redirect('/profile/user');
       })
       .catch((err) => {
@@ -35,9 +32,7 @@ module.exports = {
       });
   },
   getToken(req, res, next) {
-    // console.log(req,'req.body.password');
-    console.log(req.body,'req.body.password');
-    // if (!req.body.name || !req.body.password) return res.sendStatus(401);
+    if (!req.body.name || !req.body.password) return res.sendStatus(401);
     modelUser.findOne({ name: req.body.name})
           .then(user => {
             if (!user) return res.sendStatus(401);
