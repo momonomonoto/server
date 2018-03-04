@@ -24,7 +24,7 @@
 POST /api/projects HTTP/1.1
 Host: localhost:3000
 Content-Type: application/json
-Authorization: Bearer токен
+Authorization: Bearer полученныйтокен
 Cache-Control: no-cache
 
 3. Всего доступы два метода api:
