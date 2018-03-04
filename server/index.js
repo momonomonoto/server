@@ -26,7 +26,7 @@ server.use(session({
     name: 'sessionId',
     resave: false,
     secret: config.sessionSecret,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {},
     store: new MongoStore({
         mongooseConnection: db.connection,
