@@ -61,3 +61,7 @@ main.mdl-layout__content.project_card-container {
 .commentary__form-field {
     width: 100%;
 }
+
+.mdl-navigation__link--popup-menu {
+    text-decoration: none;
+}
