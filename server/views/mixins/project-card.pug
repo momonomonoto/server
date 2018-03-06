@@ -8,7 +8,7 @@ mixin project-card(project)
             .mdl-card__supporting-text.card_supporting-text
                 p=project.description
             .mdl-card__actions.mdl-card--border
-                a.mdl-navigation__link(href=`/${project.id}`).mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect
+                a.mdl-navigation__link(href=`/project/${project.id}`).mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect
                     | More
             .mdl-card__menu
                 button.mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect

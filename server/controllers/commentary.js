@@ -11,7 +11,7 @@ module.exports = {
       modelProjects.findOne({ id }, (err, elem) => {
         if (Boolean(id) === false) throw new Error('Id is not valid');
         const commentaries = [].concat(elem.commentaries,[{title,description}]);
-        modelProjects.update({id}, {commentaries}, () => {res.redirect(`/${id}`);})
+        modelProjects.update({id}, {commentaries}, () => {res.redirect(`/project/${id}`);})
       });
 
   }
