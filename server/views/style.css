@@ -27,9 +27,7 @@ main.mdl-layout__content.project_card-container {
     height: 157px;
 }
 
-.mdl-layout__drawer {
-    display: none;
-}
+
 .project_card {
     margin:22px;
 }
@@ -38,7 +36,8 @@ main.mdl-layout__content.project_card-container {
     display: flex;
     justify-content: center;
 }
-@media (min-width: 1250px) {
+
+@media (min-width: 1000px) {
     .mdl-layout__drawer {
         display: block;
     }
@@ -64,4 +63,10 @@ main.mdl-layout__content.project_card-container {
 
 .mdl-navigation__link--popup-menu {
     text-decoration: none;
+}
+
+@media (max-width: 600px) {
+    .mdl-search_field--mobile-with {
+        width: 80px;
+    }
 }
