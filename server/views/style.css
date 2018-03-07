@@ -37,21 +37,7 @@ main.mdl-layout__content.project_card-container {
     justify-content: center;
 }
 
-@media (min-width: 1000px) {
-    .mdl-layout__drawer {
-        display: block;
-    }
-    /*main.mdl-layout__content.project_card-container {*/
-        /*justify-content: space-around;*/
-    /*}*/
-    .project_card {
-        margin:0;
-    }
-    .project_navbar__title {
-        flex-grow: 2;
-        margin-left:22px;
-    }
-}
+
 
 .login_form {
   align-self: baseline;
@@ -63,6 +49,22 @@ main.mdl-layout__content.project_card-container {
 
 .mdl-navigation__link--popup-menu {
     text-decoration: none;
+}
+
+@media (min-width: 1000px) {
+    .mdl-layout__drawer {
+        display: block;
+    }
+    /*main.mdl-layout__content.project_card-container {*/
+    /*justify-content: space-around;*/
+    /*}*/
+    .project_card {
+        margin:0;
+    }
+    .project_navbar__title {
+        flex-grow: 2;
+        margin-left:22px;
+    }
 }
 
 @media (max-width: 600px) {
