@@ -19,6 +19,8 @@ const server = express();
 const db = require('./services/db.js');
 const MongoStore = require('connect-mongo')(session);
 
+const {detectUserAuth} = require('./middleware/index.js');
+
 server.use(express.static(config.path.view));
 // server.use(cookieParser());
 server.use(bodyParser.urlencoded({ extended: false }));
@@ -40,6 +42,7 @@ server.use(session({
 server.use(passport.initialize());
 server.use(passport.session());
 server.use(express.json());
+server.use(detectUserAuth);
 
 server.use('/', projects);
 server.use('/category', categoryRouter);
