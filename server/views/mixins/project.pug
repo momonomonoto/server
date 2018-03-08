@@ -4,15 +4,15 @@ mixin project(project,hideButton)
         main
             .demo-container.mdl-grid
                 .mdl-cell.mdl-cell--2-col.mdl-cell--hide-tablet.mdl-cell--hide-phone
-                .demo-content.mdl-color--white.content.mdl-color-text--grey-800.mdl-cell.mdl-cell--12-col
-                    .demo-crumbs.mdl-color-text--grey-500
-                    h3=project.title
-                    p=project.description
-                    .commentary-container
-                    if !hideButton
-                        if authUser
-                            a.mdl-navigation__link(href=`/add_commentary/${project.id}`)
-                                button.add-commentary-button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored
-                                    | Add commentary
+                .project-content.mdl-color--white.content.mdl-color-text--grey-800.mdl-cell.mdl-cell--12-col
+                    .project-crumbs
+                        h3=project.title
+                        p=project.description
+                        if !hideButton
+                            if authUser
+                                a.mdl-navigation__link(href=`/add_commentary/${project.id}`)
+                                    button.add-commentary-button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored
+                                        | Add commentary
                     if project.commentaries
+                        .commentary-container
                         +project-commentary(project.commentaries)
