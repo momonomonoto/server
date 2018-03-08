@@ -1,9 +1,9 @@
 mixin project-commentary(commentaries)
     for commentary in commentaries
-        mdc-card(class='topic' class=attributes.class)&attributes(attributes)
-            header.mdc-card__primary
-                h4.mdc-card__title.mdc-card__title--large=commentary.title
-                p=`author:${commentary.author}`
-            section.mdc-card__supporting-text
-            p=commentary.description
-                block
+        .commentary-card.mdl-card.mdl-shadow--2dp
+            .mdl-card__title
+                h4.mdl-card__title-text=commentary.title
+            .mdl-card__supporting-text
+                p.mdc-card__supporting-text=`author:${commentary.author}`
+            .mdl-card__supporting-text
+                p.mdc-card__supporting-text=commentary.description

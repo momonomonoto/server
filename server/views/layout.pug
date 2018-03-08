@@ -27,13 +27,11 @@ html(lang='en')
                                     .icon
                                         i.material-icons searchs
 
-                        nav.mdl-navigation
-                            a.mdl-navigation__link(href='/about/info') About
-                            a.mdl-navigation__link(href='/') Projects
                         button#demo-menu-lower-right.mdl-button.mdl-js-button.mdl-button--icon
                             i.material-icons more_vert
                         ul.mdl-menu.mdl-menu--bottom-right.mdl-js-menu.mdl-js-ripple-effect(for='demo-menu-lower-right')
                             if authUser
+                                a.mdl-menu__item.mdl-navigation__link--popup-menu(href='/about/info') About
                                 a.mdl-menu__item.mdl-navigation__link--popup-menu(href='/profile/user') Profile
                                 a.mdl-menu__item.mdl-navigation__link--popup-menu(href='/logout/form') Log out
                             else
