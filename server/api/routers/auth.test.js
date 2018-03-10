@@ -4,6 +4,7 @@ const request = require('supertest');
 const User = require('../../models/users');
 const authRouter = require('./auth');
 const bodyParser = require('body-parser');
+const config = require('../../config');
 
 const app = express();
 const agent = request.agent(app);
@@ -16,7 +17,7 @@ app.use('/token', authRouter);
 
 describe('Test auth api', () => {
   beforeAll(() => {
-    return mongoose.connect('mongodb://user:user@ds239648.mlab.com:39648/tes');
+    return mongoose.connect(config.mongodbUri.mlab);
   });
   beforeAll(() => {
     return User.create({ name: '6666', password: '6666' });

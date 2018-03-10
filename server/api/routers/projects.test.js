@@ -4,6 +4,7 @@ const request = require('supertest');
 const authRouter = require('./auth');
 const projectRouter = require('./projects');
 const bodyParser = require('body-parser');
+const config = require('../../config');
 
 const app = express();
 const router = express.Router();
@@ -19,7 +20,7 @@ const agent = request.agent(app);
 describe('Test api project', () => {
   let token;
   beforeAll(() => {
-    return mongoose.connect('mongodb://user:user@ds239648.mlab.com:39648/tes');
+    return mongoose.connect(config.mongodbUri.mlab);
   });
   beforeEach(() => {
     return agent.post('/token')
