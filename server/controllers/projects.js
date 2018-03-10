@@ -1,17 +1,19 @@
-const modelProjects = require('../models/project');
 
-module.exports = {
+module.exports = Projects => ({
   showProjects: (param) => (req, res, next) => {
     const { apiRequest } = param || false;
-    modelProjects.find().then((projects) => {
-      if (apiRequest) return res.json(projects);
+    return Projects.find().then((projects) => {
+      if (apiRequest) {
+        res.json(projects);
+        res.sendStatus(200);
+      }
       res.render('projects/index', { projects });
     })
     .catch(err => res.status(500));
   },
   showProject(req, res, next) {
     const { id } = req.params;
-    modelProjects.findOne({ id })
+    return Projects.findOne({ id })
       .then(item => {
         res.render('project/index', { project: item });
       })
@@ -19,16 +21,16 @@ module.exports = {
   },
   searchProjects(req, res) {
     const search = new RegExp(req.query.search, 'gi');
-    modelProjects.find({ title: search }).then((projects) => {
+    return Projects.find({ title: search }).then((projects) => {
       res.render('projects/index', { projects });
     });
   },
   searchCategory(req, res, next) {
     const { categoryParam } = req.params;
-    modelProjects.find({ category: categoryParam })
+    return Projects.find({ category: categoryParam })
       .then(resultList => {
         res.render('projects/index', { projects: resultList });
       })
       .catch(next);
   }
-};
+});
