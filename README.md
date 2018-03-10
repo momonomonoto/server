@@ -1,9 +1,7 @@
 # infoshop
 Пример магазина для размещения инфопродуктов. 
 ```bash
-Запуск проекта:
-  cd ./server
-  npm start
+Запуск проекта:npm start
 ```
 # Routers
 
