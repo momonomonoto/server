@@ -14,18 +14,24 @@ const categoryRouter = require('./router/category');
 const register = require('./router/register');
 const config = require('./config');
 const session = require('express-session');
+const helmet = require('helmet');
 
 const server = express();
 const db = require('./services/db.js');
 const MongoStore = require('connect-mongo')(session);
 
-const {detectUserAuth} = require('./middleware/index.js');
+const { detectUserAuth } = require('./middleware/index.js');
 
+
+server.set('views', config.path.view);
+server.set('view engine', 'pug');
+server.use(helmet({
+  frameguard: { action: 'deny' },
+  hsts: false
+}));
 server.use(express.static(config.path.view));
 // server.use(cookieParser());
 server.use(bodyParser.urlencoded({ extended: false }));
-server.set('views', config.path.view);
-server.set('view engine', 'pug');
 server.use(session({
   name: 'sessionId',
   resave: false,
