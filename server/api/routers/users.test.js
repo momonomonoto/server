@@ -18,14 +18,8 @@ app.use('/users', userRouter);
 const agent = request.agent(app);
 
 describe('Test api user ', () => {
-  let token;
   beforeAll(() => {
     return mongoose.connect(config.mongodbUri.mlab);
-  });
-  beforeEach(() => {
-    return agent.post('/token')
-            .send({ name: '123', password: '123' })
-            .expect(200);
   });
 
   afterAll(() => {
