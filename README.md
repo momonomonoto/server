@@ -36,9 +36,8 @@ Cache-Control: no-cache
   2.Получение списка пользователей. api/users
 ```
 # Tests
-
-```bash
   Для запуска тестов необходимо переключиться на ветку test.
+```bash
   Запуск тестов для api проекта: npm run test:api.
   Запуск тестов для middlewares проекта: npm run test:middleware.
 
