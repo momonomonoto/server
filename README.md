@@ -38,6 +38,7 @@ Cache-Control: no-cache
 # Tests
 
 ```bash
+  Для запуска тестов необходимо переключиться на ветку test.
   Запуск тестов для api проекта: npm run test:api.
   Запуск тестов для middlewares проекта: npm run test:middleware.
 
