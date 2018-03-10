@@ -1,6 +1,5 @@
-const modelProjects = require('../models/project');
 
-module.exports = {
+module.exports = Project => ({
   showCommentaryForm(req, res) {
     res.render('addCommentary/index');
   },
@@ -9,12 +8,11 @@ module.exports = {
     const { id } = req.params;
     const author = req.user.name;
     const description = text;
-      modelProjects.findOne({ id }, (err, elem) => {
-        if (Boolean(id) === false) throw new Error('Id is not valid');
-        const commentaries = [].concat(elem.commentaries,[{title,description,author}]);
-        modelProjects.update({id}, {commentaries}, () => {res.redirect(`/project/${id}`);})
-      });
-
+    Project.findOne({ id }, (err, elem) => {
+      if (Boolean(id) === false) throw new Error('Id is not valid');
+      const commentaries = [].concat(elem.commentaries, [{ title, description, author }]);
+      return Project.update({ id }, { commentaries }, () => { res.redirect(`/project/${id}`); });
+    });
   }
-};
+});
 

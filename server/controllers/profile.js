@@ -1,15 +1,14 @@
-const modelUser = require('../models/users');
 
-module.exports = {
+module.exports = User => ({
   showProfile(req, res, next) {
     if (Boolean(req.session.passport) === false) {
       return res.render('profile/index', { name: 'not autorized user', email: '' });
     }
     const { session: { passport: { user } } } = req;
-    modelUser.findById(user)
+    User.findById(user)
      .then(user => {
-       res.render('profile/index', { name: user.name, email: user.email });
+         return res.render('profile/index', { name: user.name, email: user.email });
      })
      .catch(next);
   }
-};
+});

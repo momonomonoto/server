@@ -1,9 +1,9 @@
-const modelAbout = require('../models/about');
 
-module.exports = {
+module.exports = aboutInformation => ({
   showAboutInformation(req, res) {
-    modelAbout.find().then((aboutItem) => {
+    return aboutInformation.find().then((aboutItem) => {
+      res.sendStatus(200);
       res.render('about/index', { project: aboutItem[0] });
     });
   }
-};
+});
