@@ -33,6 +33,13 @@ Cache-Control: no-cache
   1.Получение списка проектов. api/projects
   2.Получение списка пользователей. api/users
 ```
+# Тесты
+
+```bash
+  Запуск тестов для api проекта: npm run test:api.
+  Запуск тестов для middlewares проекта: npm run test:middleware.
+
+```
 
 
 
