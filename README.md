@@ -1,5 +1,5 @@
 # Infoshop
-Пример магазина для размещения инфопродуктов. Демо:https://nodeserver-ueultojffl.now.sh/
+Пример авторизации и добавление информации в БД. Демо:https://nodeserver-ueultojffl.now.sh/
 ```bash
 Запуск проекта: npm start
 ```
